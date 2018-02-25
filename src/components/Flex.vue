@@ -1,0 +1,556 @@
+<template>
+ <div id="main">
+    <header>
+        <div class="wrap">
+            <div class="logo">
+                <a href="">iconfont</a>
+            </div>
+            <nav>
+                <ul class="main-nav">
+                    <li>
+                        <a href="" class="active">首页</a>
+                    </li>
+                    <li>
+                        <a href="">图标库</a>
+                        <ul class="drop-down">
+                            <li>官方图标库</li>
+                            <li>多色图标库</li>
+                            <li>所有图标库</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">图标管理</a>
+                        <ul class="drop-down">
+                            <li>我的图标</li>
+                            <li>我的收藏</li>
+                            <li>我的项目</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">帮助</a>
+                        <ul class="drop-down">
+                            <li>功能介绍</li>
+                            <li>图表绘制</li>
+                            <li>代码应用</li>
+                            <li>相关文章</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">...</a>
+                        <ul class="drop-down">
+                            <li>在线字体</li>
+                            <li>功能建议</li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="nav_right">
+                <ul>
+                    <li>
+                        <div>
+                            <input type="" name="" placeholder="请选择图标和人" />
+                            <i class="iconfont icon-sousuo"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <a href=""><i class="iconfont icon-gerenzhanghu"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="iconfont icon-shangchuan"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="iconfont icon-github"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="iconfont icon-gouwuche1"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="plant-main"> <!-- relative -->
+        <div class="plant-frame"> <!-- absolute w100% h100% -->
+            <div class="wrap plants"> <!-- relative -->
+                <span class="plant plant1"></span> <!-- absolute  -->
+                <span class="plant plant2"></span>
+                <span class="plant plant3"></span>
+                <span class="plant plant4"></span>
+                <span class="plant plant5"></span>
+            </div>
+        </div>
+        <div class="plant-frame"> <!-- absolute w100% h100% -->
+            <div class="wrap avater"> <!-- relative -->
+                <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png">
+                <div class="contents">
+                    <span class="title">大麦官方图标库</span>
+                    <span class="avater-content">31 icons</span>
+                    <span class="avater-content">Tom kong</span>
+                </div>
+            </div>
+        </div>
+        <div class="plant-frame"><!--  absolute w100% h100% -->
+            <div class="wrap radius"> <!-- relative -->
+                <div class="radius-btns">
+                    <div class="radius-btn search">
+                        <input type="text" placeholder="请搜索图标">
+                        <i class="iconfont icon-sousuo"></i>
+                    </div>
+                    <div class="radius-btn share"><i class="iconfont icon-fenxiang"></i></div>
+                    <div class="radius-btn good" title="打赏"><i class="iconfont icon-dashang"></i></div>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrap content">
+      <ul>
+        <li v-for="voter in voters">
+          <img v-bind:src="voter.real" alt="tip">
+          <img v-bind:src="voter.poster" alt="tip">
+          <span>name：{{voter.name}}</span>
+        </li>
+      </ul>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      voters: []
+    }
+  },
+  mounted: function () {
+    let vm = this
+    this.$ajax.get('./api/voters').then(function(response) {
+      let start = 0
+      let interval = setInterval(()=> {
+        let end = start + 8
+        while(start < end) {
+          vm.voters.push(response.data[start])
+          start++
+        }
+      }, 100000);
+    })
+  },
+}
+</script>
+
+<style scoped>
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+    width: 4px;
+    background-color: red;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius: 2px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #36d860;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+.content {
+  /*min-height: 1000px;*/
+}
+.content ul li {
+    width: 240px;
+    height: 176px;
+    /*line-height: 176px;*/
+    text-align: center;
+    border: 1px dashed rgb(166, 8, 8);
+    border-radius: 15px;
+    margin: 8px 9px;
+    padding: 2px;
+    // float: left;
+    list-style-type: none;
+    /*box-shadow: 9px 10px 6px #666;*/
+    transition: all 2s ease;
+    zoom: 5;
+}
+.content ul li i {
+    font-size: 67px;
+    margin-top: 26px;
+    display: block;
+}
+.content ul li img {
+   width: 110px;
+}
+.content ul li span {
+    display: block;
+    font-size: 12px;
+    top: 30px;
+}
+.content ul li:hover {
+    zoom: 5;
+}
+/*div ul li:hover {
+
+position: fixed;
+width: 200px;
+height: 200px;
+background: url(./img/china_pavilion.jpg) no-repeat;
+zoom: 3;
+background-size: 100% 100%;
+transform: rotate(7deg);
+}*/
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;;
+}
+.wrap {
+    width: 1160px !important;
+    margin: 0 auto;
+}
+/*div, header, li, span {
+    border: 1px dashed red;
+}
+*/
+input, select, option, textarea {
+    outline: none;
+}
+header {
+    height: 55px;
+    background-color: #090723;
+    line-height: 55px;
+    position: relative;
+    z-index: 10000;
+}
+.logo {
+    width: 125px;
+    height: 55px;
+    text-align: center;
+    float: left;
+}
+.logo a {
+    color: #ffffff;
+}
+.main-nav {
+    float: left;
+}
+#main li {
+    text-align: center;
+    cursor: pointer;
+}
+.main-nav li {
+    margin: 0 15px;
+    float: left;
+    font-size: 14px;
+    height: 55px;
+    position: relative;
+}
+.main-nav li:hover .drop-down {
+    display: block;
+}
+.main-nav li:hover a {
+    color: #ffffff;
+}
+
+.main-nav li a {
+    color: #928686;
+    display: block;
+    height: 45px;
+}
+
+.active {
+    color: #ffffff !important;
+}
+
+.drop-down {
+    display: none;
+    position: absolute;
+    left: -16px;
+    background-color: #090723;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* box-shadow: 2px 3px 8px #f3f0f0;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;*/
+}
+.drop-down li {
+    float: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100px;
+    height: 23px;
+    line-height: 23px;
+    font-size: 12px;
+    margin: 0;
+    background-color: #090723;
+    color: #d4d4d4;
+    padding: 7px 15px;
+    border-radius: 10px;
+    text-align: left!important;
+}
+.drop-down li:hover {
+    opacity: 0.5;
+    background-color: #39365a;
+    color: #ffffff;
+}
+.nav_right {
+    float: right;
+    height: 55px;
+}
+.nav_right ul li {
+    margin: 0 13px;
+    float: left;
+}
+.nav_right li:first-child input {
+    box-sizing: border-box;
+    border-radius: 15px;
+    border: 1px solid #928686;
+    height: 30px;
+    width: 160px;
+    /*background-color: transparent;*/
+    background: 0 0;
+    color: #ffffff;
+    padding: 0px 30px 1px 15px;
+    transition: all .2s ease-in-out;
+}
+.nav_right li:first-child div {
+    position: relative;
+}
+
+.nav_right li:first-child input:hover {
+    border: 1px solid #fff;
+}
+
+.nav_right li:first-child i {
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    color: #928686;
+}
+.nav_right li a i {
+    font-size: 26px;
+    color: #928686;
+}
+.nav_right li:hover i {
+    color: #fff;
+}
+
+.plant-main {
+    background-color: #090723;
+    height: 155px;
+    position: relative;
+}
+
+.plant-frame {
+    position: absolute;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+}
+
+.plant-frame:first-child {
+    overflow: hidden;
+}
+
+.plants {
+    position: relative;
+    height: 100%;
+}
+
+.plant {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.plant1 {
+    width: 130px;
+    height: 130px;
+    opacity: 0.2;
+    top: -65%;
+    left: -6%;
+    background-color: #45dfef;
+}
+.plant2 {
+    width: 100px;
+    height: 100px;
+    opacity: .4;
+    top: 72%;
+    left: 50%;
+    background-color: #5745ef;
+}
+.plant3 {
+    width: 150px;
+    height: 150px;
+    opacity: .5;
+    top: -65%;
+    left: 56%;
+    background-color: #5be291;
+}
+.plant4 {
+    width: 20px;
+    height: 20px;
+    opacity: .5;
+    top: 56%;
+    left: 25%;
+    background-color: #e8f70b;
+}
+.plant5 {
+    width: 80px;
+    height: 80px;
+    opacity: .8;
+    top: 77%;
+    left:  92%;
+    background-color: #e06637;
+}
+
+.avater {
+    position: relative;
+    height: 84%;
+    bottom: -16%;
+    /*top: -150px;*/
+}
+.avater img {
+    /*position: absolute;*/
+    width: 130px;
+    /*left: 2%;*/
+    float: left;
+}
+
+.avater .contents {
+    width: 14rem;
+    float: left;
+    color: #ffffff;
+    margin-left: 30px;
+}
+
+.avater .contents span {
+    display: block;
+    padding: 2px 5px;
+}
+
+.avater .contents .title {
+    font-size: 1.5rem;
+}
+
+.avater .contents .avater-content {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    color: #8c8585;
+}
+
+.radius {
+    position: relative;
+    margin-top: 125px;
+}
+
+.radius-btns {
+    position: absolute;
+    right: 0px;
+}
+
+.radius-btn {
+    height: 50px;
+    min-width: 50px;
+    border-radius: 25px;
+    margin-left: 20px;
+    float: left;
+    box-shadow: 1px 1px 3px #bbb;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.radius-btn i {
+    font-size: 1.5rem;
+}
+
+.radius-btns .search {
+  /* background: red;
+    position: relative;
+    width: auto;
+    display: inline-block*/;
+
+    background: red;
+    color: #fff;
+    width: 0px;
+    border-radius: 25px;
+    min-width: 50px;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    position: relative;
+}
+
+.radius-btns .search i {
+    position: absolute;
+    right: 12px;
+    top: 1px;
+}
+
+.radius-btns .search input {
+    /*position: relative;*/
+    /*height: 24px;*/
+    /*margin: 0px 38px 0px 21px;*/
+    /*width: 0px;
+    text-align: left;
+    box-sizing: border-box;
+    border: 0px;
+    padding: 0px;
+    color: #fff;*/
+    /*bottom: 2px;*/
+    /*display: none;*/
+    /*transition: all .3s ease-in-out;*/
+
+
+    display: inline-block;
+    background: 0 0;   /*key*/
+    border: 1px solid red;
+    color: #fff;
+    padding-left: 20px;
+    /* line-height: 50px!important; */
+    height: 50px;
+    box-sizing: border-box;
+    vertical-align: 4px;
+    font-size: 16px;
+    width: 100px;
+    transition: all .3s ease-in-out;
+}
+
+/*.radius-btns .search:hover input {
+    width: 189px;
+}*/
+
+.radius-btns .share {
+    background: #64b532;
+}
+
+.radius-btns .good {
+    background: #ffa000;
+}
+
+.radius-btn:first-child:hover {
+    width: 180px;
+}
+
+.radius-btn:first-child:hover input {
+      display: inline-block;
+      width: 180px;
+}
+</style>
